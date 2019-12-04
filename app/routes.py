@@ -19,40 +19,36 @@ db = Database()
 invertedIndex = InvertedIndex(db)
 
 @app_blueprint.route('/', methods=['POST', 'GET'])
-def landingPage():
+def landing_page():
     form = QueryForm()
     if form.validate_on_submit():
         query = form.query.data
         if query:
             query = query.lower()
-            return redirect(url_for('app.resultPage', query=query, invertedIndex=invertedIndex))
+            return redirect(url_for('app.result_page', query=query, invertedIndex=invertedIndex))
     return render_template('index.html', form=form)
 
 
-"""@app_blueprint.route('/loaddocs', methods=['GET', 'POST'])
-def addNewPage():
-    return render_template('loaddocs.html')
-"""
 
 @app_blueprint.route('/loaddocs', methods=['POST', 'GET'])
-def loadNewDocPage():
+def load_new_docs():
     newDocForm2 = NewDocForm()
     if newDocForm2.validate_on_submit():
         document = newDocForm2.document.data
         if document:
             documents = []
-            document = document.replace('\r', '').split('\n\n')
+            document = document.replace('\r', '').split('\n')
             for document in document:
                 documents.append(document.lower())
             for eachDocument in documents:
                 invertedIndex.index_document(eachDocument)
-            return redirect(url_for('app.landingPage'))
+            return redirect(url_for('app.landing_page'))
     return render_template('loaddocs.html', form=newDocForm2)
 
 
 
 @app_blueprint.route('/<query>/search', methods=['POST', 'GET'])
-def resultPage(query):
+def result_page(query):
     searchResults = []
     result = invertedIndex.lookup_query(query)
     if result[0]:
@@ -70,7 +66,7 @@ def resultPage(query):
 
 
 @app_blueprint.route('/viewdocs', methods=['POST', 'GET'])
-def viewAllDocs():
+def view_all():
     searchResults = []
     for _, v in db.db.items():
         searchResults.append(v)
@@ -81,7 +77,7 @@ def viewAllDocs():
         return render_template('notfound.html')
 
 @app_blueprint.route('/erasedocs', methods=['POST', 'GET'])
-def eraseAllDocs():
+def erase_all_docs():
     db.db = dict()
     invertedIndex.index = dict()
     invertedIndex.db = db 
