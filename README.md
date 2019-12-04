@@ -1,3 +1,4 @@
+Web app deployed on heroku: https://atapsearch.herokuapp.com/ (It crashes sometimes, it's a bit buggy)
 TapSearch is a search engine in python. It can do the following:
    
 1.  It takes in multiple paragraphs of text, assigns a unique ID To each paragraph and stores the words to paragraph mappings on an inverted index. This is similar to what elasticsearch does. This paragraph can also be referred to as a ‘document’
