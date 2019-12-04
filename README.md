@@ -28,3 +28,6 @@ How to use:
 7. Search for a word by going to the homepage and submitting the query in textbox
 
 8. Delete all documents by clicking on the delete all button on the navigation bar
+
+
+![](ezgif.com-video-to-gif(1).gif)
